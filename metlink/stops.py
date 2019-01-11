@@ -28,20 +28,24 @@ class MetlinkStop(object):
             if str(route_number) == str(service.route_number):
                 yield service
 
+    def stop_data(self, key):
+        """Retrieve value from stop data hash"""
+        return self._data.get('Stop', {}).get(key)
+
     @property
     def stop_name(self):
         """Name of the stop."""
-        return self._data.get('Stop', {}).get('Name')
+        return self.stop_data('Name')
 
     @property
     def longitude(self):
         """Longitude of the stop's location."""
-        return self._data.get('Stop', {}).get('Long')
+        return self.stop_data('Long')
 
     @property
     def latitude(self):
         """Latitude of the stop's location."""
-        return self._data.get('Stop', {}).get('Lat')
+        return self.stop_data('Lat')
 
     def next_service(self, route_number=None):
         """The next service expected to arrive here."""
